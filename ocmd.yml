@@ -1,18 +1,43 @@
 ---
- - hosts: all                                  
-   collections:                                
-    - ibm.ibm_zos_core                         
-   gather_facts: no                            
-   remote_user: koester                          
-   environment: "{{ environment_vars }}"       
-   connection: ibm.ibm_zos_core.zos_ssh        
-   become: false                               
-   tasks:
-    - name: Execute an operator command to show active jobs
-      zos_operator:
-        cmd: 'ds p,E8D8'
+- hosts: all
+  collections:
+    - ibm.ibm_zos_core
+  gather_facts: no
+#############################################################################
+# replace vars accordingly      
+#############################################################################
+  vars:
+  environment: "{{ environment_vars }}" 
+  connection: ibm.ibm_zos_core.zos_ssh
+
+  tasks:                           
+###############################################################################
+# Ping the host with Ansible ping module to see if the target is available
+# #############################################################################
+    - name: Ping host - {{ inventory_hostname }}
+      ping:
       register: result
     
-    - name: Print results   
+    - name: Response
       debug:
-        msg: "{{ result }}"    
+        msg: "{{ result.ping }}"
+###############################################################################
+# Issue an operator command d ts,all
+###############################################################################
+    - name: operator command d ts,list 
+      zos_operator:
+        cmd: 'd ts,all'
+      register: operResult
+    
+    - name: print output from operator cmd
+      ansible.builtin.debug:
+        msg: "{{ operResult }}"
+     
+    - name: set variable 
+      set_fact: 
+        myvar: "{{ operResult.content | to_nice_json }}"
+    
+    - name: print variable 
+      debug:
+        msg: "{{ myvar }}"
+ 
