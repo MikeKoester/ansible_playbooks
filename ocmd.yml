@@ -1,0 +1,18 @@
+---
+ - hosts: all                                  
+   collections:                                
+    - ibm.ibm_zos_core                         
+   gather_facts: no                            
+   remote_user: koester                          
+   environment: "{{ environment_vars }}"       
+   connection: ibm.ibm_zos_core.zos_ssh        
+   become: false                               
+   tasks:
+    - name: Execute an operator command to show active jobs
+      zos_operator:
+        cmd: 'ds p,E8D8'
+      register: result
+    
+    - name: Print results   
+      debug:
+        msg: "{{ result }}"    
