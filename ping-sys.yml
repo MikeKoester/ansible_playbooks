@@ -1,0 +1,22 @@
+---                                           
+ - hosts: all                                
+   collections:                                
+    - ibm.ibm_zos_core                         
+   gather_facts: no                            
+   remote_user: koester 
+   environment:
+        http_proxy: 9.11.116.73:2022                             
+   connection: ibm.ibm_zos_core.zos_ssh        
+   become: false                               
+   tasks:                                      
+     - name: Ping host                        
+       ping:                                   
+       register: result                        
+                                               
+     - name: Response                          
+       debug:                                  
+         msg: "{{ result.ping }}"              
+     
+    
+
+
