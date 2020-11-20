@@ -24,3 +24,4 @@
         src: KOESTER.ANALYZE.OUTPUT
         dest: /tmp/ICKDSF.ANALYZE.OUTPUT.txt
         flat: true
+        ignore_sftp_stderr: true
