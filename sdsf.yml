@@ -1,0 +1,26 @@
+---
+ - hosts: all                                  
+   collections:                                
+    - ibm.ibm_zos_core                         
+   gather_facts: no                            
+   remote_user: koester                          
+   environment: "{{ environment_vars }}"       
+   connection: ibm.ibm_zos_core.zos_ssh        
+   become: false                               
+   tasks:
+    - name: Submit the JCL
+      zos_job_submit:
+        src: K310341.BURCH.DEVMANC.JCL(PYDSF)
+        location: DATA_SET
+        wait: false
+      register: response
+
+    - name: Print response   
+      debug:
+        msg: "{{ response }}"  
+
+    - name: Fetch a sequential data set and store in /tmp/DATA.SET
+      zos_fetch:
+        src: KOESTER.ANALYZE.OUTPUT
+        dest: /tmp/ICKDSF.ANALYZE.OUTPUT.txt
+        flat: true
