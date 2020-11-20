@@ -22,6 +22,5 @@
     - name: Fetch a sequential data set and store in /tmp/DATA.SET
       zos_fetch:
         src: KOESTER.ANALYZE.OUTPUT
-        dest: /tmp/ICKDSF.ANALYZE.OUTPUT.txt
-        flat: true
-        ignore_sftp_stderr: true
+        dest: /tmp/
+        flat: true  
