@@ -23,4 +23,7 @@
       zos_fetch:
         src: KOESTER.ANALYZE.OUTPUT
         dest: /tmp/
-        flat: true  
+        flat: yes
+        encoding:
+          from: IBM-1047
+          to: ISO8859-1
