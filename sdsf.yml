@@ -21,9 +21,7 @@
 
     - name: Fetch a sequential data set and store in /tmp/DATA.SET
       zos_fetch:
-        src: KOESTER.ANALYZE.OUTPUT
+        src: KOESTER.CLIST.CLIST(CONCAT)
         dest: /tmp/
-        flat: yes
-        encoding:
-          from: IBM-1047
-          to: ISO8859-1
+        flat: True
+       
