@@ -24,4 +24,4 @@
         src: KOESTER.CLIST.CLIST(CONCAT)
         dest: /tmp/
         flat: True
-       
+        ignore_sftp_stderr: True   
