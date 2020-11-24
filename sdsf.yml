@@ -21,7 +21,7 @@
 
     - name: Fetch a sequential data set and store in /tmp/DATA.SET
       zos_fetch:
-        src: KOESTER.CLIST.CLIST(CONCAT)
+        src: KOESTER.ANALYZE.OUTPUT
         dest: /tmp/
         flat: True
         ignore_sftp_stderr: True   
